@@ -70,6 +70,7 @@ const Shuffle: React.FC<ShuffleProps> = ({
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const playingRef = useRef(false);
   const hoverHandlerRef = useRef<((e: Event) => void) | null>(null);
+  const originalTextRef = useRef<string>("");
 
   useEffect(() => {
     if ('fonts' in document) {
@@ -109,36 +110,59 @@ const Shuffle: React.FC<ShuffleProps> = ({
           tlRef.current = null;
         }
         if (wrappersRef.current.length) {
+          // If we used SplitText, we have an inner with data-orig
+          let restored = false;
           wrappersRef.current.forEach(wrap => {
             const inner = wrap.firstElementChild as HTMLElement | null;
             const orig = inner?.querySelector('[data-orig="1"]') as HTMLElement | null;
-            if (orig && wrap.parentNode) (wrap.parentNode as Node).replaceChild(orig, wrap);
+            if (orig && wrap.parentNode) {
+              (wrap.parentNode as Node).replaceChild(orig, wrap);
+              restored = true;
+            }
           });
           wrappersRef.current = [];
+          // If we created wrappers manually (no SplitText), restore original text
+          if (!restored && ref.current) {
+            ref.current.textContent = originalTextRef.current || "";
+          }
         }
         try {
-          splitRef.current?.revert();
+          splitRef.current?.revert?.();
         } catch {}
         splitRef.current = null;
         playingRef.current = false;
       };
 
       const build = () => {
+        wrappersRef.current = [];
         const SplitTextCtor: any = (gsap as any).SplitText || null;
-        if (!SplitTextCtor) {
-          setReady(true);
-          return;
+        let chars: HTMLElement[] = [];
+        if (SplitTextCtor) {
+          splitRef.current = new SplitTextCtor(el, {
+            type: 'chars',
+            charsClass: 'shuffle-char',
+            wordsClass: 'shuffle-word',
+            linesClass: 'shuffle-line',
+            smartWrap: true,
+            reduceWhiteSpace: false
+          });
+          chars = (splitRef.current.chars || []) as HTMLElement[];
+        } else {
+          // Manual split fallback (no Club GSAP SplitText)
+          originalTextRef.current = text;
+          // Clear element and inject spans per character to mimic SplitText chars
+          el.textContent = '';
+          const source = text.split("");
+          source.forEach((c) => {
+            const span = document.createElement('span');
+            // Preserve spaces width using NBSP
+            span.textContent = c === ' ' ? '\u00a0' : c;
+            span.className = 'shuffle-char';
+            el.appendChild(span);
+            chars.push(span);
+          });
         }
-        splitRef.current = new SplitTextCtor(el, {
-          type: 'chars',
-          charsClass: 'shuffle-char',
-          wordsClass: 'shuffle-word',
-          linesClass: 'shuffle-line',
-          smartWrap: true,
-          reduceWhiteSpace: false
-        });
 
-        const chars = (splitRef.current.chars || []) as HTMLElement[];
         wrappersRef.current = [];
 
         const rolls = Math.max(1, Math.floor(shuffleTimes));
@@ -365,8 +389,9 @@ const Shuffle: React.FC<ShuffleProps> = ({
 
   const commonStyle: React.CSSProperties = { textAlign, ...style };
   const classes = `shuffle-parent ${ready ? 'is-ready' : ''} ${className}`;
-  const Tag = (tag || 'p') as keyof JSX.IntrinsicElements;
-  return React.createElement(Tag, { ref: ref as any, className: classes, style: commonStyle }, text);
+  // Use `any` for Tag to satisfy TS when using a dynamic intrinsic element with a ref
+  const Tag: any = tag || 'p';
+  return <Tag ref={ref as any} className={classes} style={commonStyle}>{text}</Tag>;
 };
 
 export default Shuffle;
