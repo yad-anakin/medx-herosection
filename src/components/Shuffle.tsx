@@ -1,14 +1,13 @@
+"use client";
+
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-// Note: SplitText is a GSAP Club plugin. Ensure it's available in your environment.
-// If it's not available, this import may fail at build time.
-// @ts-ignore
-import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 import { useGSAP } from '@gsap/react';
 import './Shuffle.css';
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
+// Register only public plugins. SplitText is a Club GSAP plugin and may not be present in the build environment.
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export interface ShuffleProps {
   text: string;
@@ -65,7 +64,8 @@ const Shuffle: React.FC<ShuffleProps> = ({
   const [fontsLoaded, setFontsLoaded] = useState(false);
   const [ready, setReady] = useState(false);
 
-  const splitRef = useRef<InstanceType<typeof GSAPSplitText> | null>(null);
+  // When SplitText isn't available (e.g., on Vercel without Club GSAP), we skip the animation gracefully.
+  const splitRef = useRef<any | null>(null);
   const wrappersRef = useRef<HTMLElement[]>([]);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const playingRef = useRef(false);
@@ -124,9 +124,12 @@ const Shuffle: React.FC<ShuffleProps> = ({
       };
 
       const build = () => {
-        teardown();
-
-        splitRef.current = new GSAPSplitText(el, {
+        const SplitTextCtor: any = (gsap as any).SplitText || null;
+        if (!SplitTextCtor) {
+          setReady(true);
+          return;
+        }
+        splitRef.current = new SplitTextCtor(el, {
           type: 'chars',
           charsClass: 'shuffle-char',
           wordsClass: 'shuffle-word',
