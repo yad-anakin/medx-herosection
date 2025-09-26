@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "MedX Agency — Modern digital products",
-    template: "%s | MedX Agency",
+    default: "KDHN Agency — Modern digital products",
+    template: "%s | KDHN Agency",
   },
   description: "A clean, modern, dark-mode agency website built with Next.js.",
 };

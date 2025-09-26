@@ -487,11 +487,17 @@ export default function MetallicPaint({ imageData, params = defaultParams }) {
       const imgRatio = imageData.width / imageData.height;
       gl.uniform1f(uniforms.u_img_ratio, imgRatio);
 
-      const side = 1000;
-      canvasEl.width = side * devicePixelRatio;
-      canvasEl.height = side * devicePixelRatio;
-      gl.viewport(0, 0, canvasEl.height, canvasEl.height);
-      gl.uniform1f(uniforms.u_ratio, 1);
+      // Get the container's actual size
+      const container = canvasEl.parentElement;
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      
+      canvasEl.width = containerWidth * devicePixelRatio;
+      canvasEl.height = containerHeight * devicePixelRatio;
+      gl.viewport(0, 0, canvasEl.width, canvasEl.height);
+      
+      const canvasRatio = canvasEl.width / canvasEl.height;
+      gl.uniform1f(uniforms.u_ratio, canvasRatio);
       gl.uniform1f(uniforms.u_img_ratio, imgRatio);
     }
 

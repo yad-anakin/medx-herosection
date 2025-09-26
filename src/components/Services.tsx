@@ -1,39 +1,98 @@
+"use client";
+
+import LogoLoop from "@/components/LogoLoop";
+import InfiniteScroll from "@/components/InfiniteScroll";
+
 export default function Services() {
-  const items = [
-    {
-      title: "Strategy & Discovery",
-      desc: "Workshops, product strategy, and roadmaps to align teams and outcomes.",
-    },
-    {
-      title: "Design Systems",
-      desc: "Scalable UI libraries, accessible patterns, and documentation.",
-    },
-    {
-      title: "Web & App Development",
-      desc: "High-performance websites and apps powered by modern frameworks.",
-    },
-    {
-      title: "Brand & Creative",
-      desc: "Visual identity, motion, and content systems that stand out.",
-    },
-  ];
-
   return (
-    <section id="services" className="container-px mx-auto max-w-6xl py-20 md:py-28">
+    <section id="idea" className="container-px mx-auto max-w-6xl py-20 md:py-28" style={{ backgroundColor: '#000000' }}>
       <div className="flex items-end justify-between gap-6">
-        <h2 className="text-2xl md:text-3xl font-semibold">What we do</h2>
-        <span className="text-sm text-[--color-muted-foreground]">End-to-end services</span>
+        <h2 className="text-2xl md:text-3xl font-semibold">Our idea</h2>
       </div>
 
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-        {items.map((it) => (
-          <div key={it.title} className="card p-5 md:p-6 hover:glow-brand transition-[box-shadow]">
-            <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
-            <h3 className="text-base md:text-lg font-medium">{it.title}</h3>
-            <p className="prose-muted mt-2 text-sm leading-relaxed">{it.desc}</p>
-          </div>
-        ))}
+      <div className="mt-8 flex w-full justify-center">
+        <InfiniteScroll
+          width="42rem"
+          maxHeight="32rem"
+          negativeMargin="-0.75em"
+          itemMinHeight={160}
+          isTilted={true}
+          tiltDirection="left"
+          autoplay={true}
+          autoplaySpeed={0.6}
+          autoplayDirection="down"
+          pauseOnHover={true}
+          items={[
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Smart Health</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">AI-assisted guidance for everyday care</p>
+              </div>
+            )},
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Trusted Medical Info</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">Clear answers, reviewed by experts</p>
+              </div>
+            )},
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Connected Care Networks</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">Linking people to nearby services</p>
+              </div>
+            )},
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Digital Health in Kurdistan</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">Localized tools that work for everyone</p>
+              </div>
+            )},
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Accessible Tips</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">Reliable guidance, whenever you need it</p>
+              </div>
+            )},
+            { content: (
+              <div className="card p-5 md:p-6">
+                <div className="h-6 w-6 rounded-full mb-4" style={{ background: "var(--brand)" }} />
+                <h3 className="text-base md:text-lg font-medium">Empowered Decisions</h3>
+                <p className="prose-muted mt-2 text-sm leading-relaxed">Helping patients choose with confidence</p>
+              </div>
+            )},
+          ]}
+        />
       </div>
-    </section>
-  );
-}
+
+       {/* Trusted by section */}
+       <div className="relative z-10 mt-12">
+         <div className="container-px mx-auto max-w-6xl">
+           <div className="text-center text-xs uppercase tracking-wide text-[--color-muted-foreground] mb-4">Kurdistan Digital HealthNet</div>
+           <LogoLoop
+             logos={[
+               { src: "/kdhn.png", alt: "KDHN" },
+               { src: "/kdhn.png", alt: "KDHN" },
+               { src: "/kdhn.png", alt: "KDHN" },
+               { src: "/kdhn.png", alt: "KDHN" },
+             ]}
+             speed={40}
+             direction="left"
+             logoHeight={48}
+             gap={40}
+             pauseOnHover
+             scaleOnHover
+             fadeOut
+             fadeOutColor="#0b0b0b"
+             ariaLabel="kdhn"
+           />
+         </div>
+       </div>
+     </section>
+   );
+ }
+

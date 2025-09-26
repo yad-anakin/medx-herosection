@@ -11,37 +11,37 @@ export default function Navbar() {
   return (
     <header className="container-px fixed top-[15px] left-[15px] right-[15px] z-40 rounded-2xl border-b border-white/10 bg-black/30 supports-[backdrop-filter]:bg-black/20 backdrop-blur-md shadow-[0_1px_0_0_rgba(255,255,255,0.03)]">
       <div className="mx-auto max-w-6xl h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 text-[--color-foreground]" onClick={close}>
-          <img src="/medx-logo.svg" alt="MedX logo" className="h-6 w-6" />
-          <span className="tracking-tight font-semibold">MedX</span>
+        <Link href="/" className="group flex items-center gap-2 text-[--color-foreground] transition-colors hover:text-[--brand] rounded-md -mx-1 px-1 hover:bg-white/5 hover:backdrop-blur-sm" onClick={close}>
+          <img src="/kdhnb.png" alt="KDHN logo" className="h-12 transition duration-200 ease-out group-hover:scale-[1.04] group-hover:brightness-125 group-hover:drop-shadow-[0_0_18px_rgba(130,194,255,0.35)]" />
+          <span className="tracking-tight font-semibold"></span>
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden sm:flex items-center gap-6 text-sm">
           <a
-            href="#services"
-            className="text-[--color-muted-foreground] hover:text-[--color-foreground] transition-colors border-b-2 border-transparent hover:border-[--brand] pb-0.5"
+            href="#idea"
+            className="text-[--color-muted-foreground] hover:text-[--brand] transition-colors transition-transform hover:scale-105 border-b-2 border-transparent hover:border-[--brand] pb-0.5 rounded-md px-2 py-1 -mx-2 hover:bg-white/5 hover:backdrop-blur-sm"
           >
-            Services
+            Our idea
           </a>
           <a
             href="#work"
-            className="text-[--color-muted-foreground] hover:text-[--color-foreground] transition-colors border-b-2 border-transparent hover:border-[--brand] pb-0.5"
+            className="text-[--color-muted-foreground] hover:text-[--brand] transition-colors transition-transform hover:scale-105 border-b-2 border-transparent hover:border-[--brand] pb-0.5 rounded-md px-2 py-1 -mx-2 hover:bg-white/5 hover:backdrop-blur-sm"
           >
-            Work
+            Our mission
           </a>
           <a
             href="#contact"
-            className="text-[--color-muted-foreground] hover:text-[--color-foreground] transition-colors border-b-2 border-transparent hover:border-[--brand] pb-0.5"
+            className="text-[--color-muted-foreground] hover:text-[--brand] transition-colors transition-transform hover:scale-105 border-b-2 border-transparent hover:border-[--brand] pb-0.5 rounded-md px-2 py-1 -mx-2 hover:bg-white/5 hover:backdrop-blur-sm"
           >
-            Contact
+            Contact us
           </a>
           <a
-            href="#contact"
+            href="https://kdhn-demo.online/"
             className="ml-2 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-[--color-foreground] bg-white/5 hover:bg-white/10 border border-white/10 transition-colors shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
             style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
           >
-            Get in touch
+            Test our solution
           </a>
         </nav>
 
@@ -84,22 +84,22 @@ export default function Navbar() {
       >
         <div className="container-px mx-auto max-w-6xl pb-2">
           <nav className="mt-2 grid gap-1 text-sm">
-            <a onClick={close} href="#services" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:bg-white/10">
-              Services
+            <a onClick={close} href="#idea" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:text-[--brand] hover:bg-white/10 hover:backdrop-blur-sm transition-colors transition-transform hover:scale-105">
+              Our idea
             </a>
-            <a onClick={close} href="#work" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:bg-white/10">
-              Work
+            <a onClick={close} href="#work" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:text-[--brand] hover:bg-white/10 hover:backdrop-blur-sm transition-colors transition-transform hover:scale-105">
+              Our mission
             </a>
-            <a onClick={close} href="#contact" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:bg-white/10">
-              Contact
+            <a onClick={close} href="#contact" className="block rounded-md px-3 py-2 text-[--color-foreground] hover:text-[--brand] hover:bg-white/10 hover:backdrop-blur-sm transition-colors transition-transform hover:scale-105">
+              Contact us
             </a>
             <a
               onClick={close}
-              href="#contact"
+              href="https://kdhn-demo.online/"
               className="mt-1 inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-[--color-foreground] bg-white/5 hover:bg-white/10 border border-white/10 transition-colors shadow-[inset_0_0_0_1px_rgba(255,255,255,0.06)]"
               style={{ boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.06)" }}
             >
-              Get in touch
+              Test our solution
             </a>
           </nav>
         </div>
@@ -107,3 +107,4 @@ export default function Navbar() {
     </header>
   );
 }
+
